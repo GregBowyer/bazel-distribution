@@ -266,10 +266,14 @@ def _generate_pom_xml(ctx, maven_coordinates):
         license_name = "Apache License, Version 2.0"
         license_url = "https://www.apache.org/licenses/LICENSE-2.0.txt"
         license_text = apache_license_text
-    if ctx.attr.license == 'mit':
+    elif ctx.attr.license == 'mit':
         license_name = "MIT License"
         license_url = "https://opensource.org/licenses/MIT"
         license_text= mit_license_text
+    else:
+        license_name = "Propriatory code"
+        license_url = ""
+        license_text = ""
 
     scm_connection = ctx.attr.scm_url
     scm_developer_connection = ctx.attr.scm_url
@@ -424,7 +428,7 @@ assemble_maven = rule(
             doc = 'Project URL to fill into pom.xml'
         ),
         "license": attr.string(
-            values=["apache", "mit"],
+            values=["apache", "mit", "propriatory"],
             default = "apache",
             doc = 'Project license to fill into pom.xml'
         ),
